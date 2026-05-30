@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moon Protocol – Premium Event Agency</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Bebas+Neue&family=Raleway:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ===== CSS VARIABLES ===== */
+:root {
+  --orange: #E8741A;
+  --orange-light: #F4952A;
+  --orange-dark: #C05A0A;
+  --cream: #F5ECD7;
+  --cream-light: #FAF4E8;
+  --white: #FFFFFF;
+  --black: #0A0804;
+  --black-soft: #1A1208;
+  --glass-bg: rgba(245,236,215,0.08);
+  --glass-border: rgba(232,116,26,0.25);
+  --glass-shadow: rgba(232,116,26,0.15);
+  --nav-height: 80px;
+}
+
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Raleway', sans-serif;
+  background: var(--black);
+  color: var(--cream);
+  overflow-x: hidden;
+  cursor: none;
+}
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; }
+
+/* ===== CUSTOM CURSOR ===== */
+.cursor {
+  width: 12px; height: 12px;
+  background: var(--orange);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%,-50%);
+  transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+}
+.cursor-ring {
+  width: 38px; height: 38px;
+  border: 1.5px solid var(--orange);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%,-50%);
+  transition: transform 0.15s ease-out, width 0.25s, height 0.25s, border-color 0.2s;
+  opacity: 0.7;
+}
+body:hover .cursor { opacity: 1; }
+
+/* ===== PAGES ===== */
+.page { display: none; min-height: 100vh; }
+.page.active { display: block; }
+
+/* ===== NAV ===== */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--nav-height);
+  background: rgba(10,8,4,0.85);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(232,116,26,0.18);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5%;
+  z-index: 9000;
+  transition: background 0.3s;
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.9rem;
+  letter-spacing: 0.12em;
+  color: var(--cream);
+  display: flex; align-items: center; gap: 10px;
+}
+.nav-logo span { color: var(--orange); }
+.nav-logo .moon-icon { font-size: 1.5rem; }
+.nav-links {
+  display: flex; gap: 2.5rem; list-style: none;
+}
+.nav-links a {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 500;
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: 0.75;
+  position: relative;
+  transition: opacity 0.3s, color 0.3s;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: -4px; left: 0; right: 100%;
+  height: 1px; background: var(--orange);
+  transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.nav-links a:hover, .nav-links a.active-link { opacity: 1; color: var(--orange); }
+.nav-links a:hover::after, .nav-links a.active-link::after { right: 0; }
+.nav-cta {
+  background: var(--orange);
+  color: var(--black) !important;
+  padding: 9px 22px;
+  border-radius: 2px;
+  font-weight: 700 !important;
+  opacity: 1 !important;
+  letter-spacing: 0.15em;
+  transition: background 0.3s, transform 0.2s !important;
+}
+.nav-cta:hover { background: var(--orange-light) !important; transform: translateY(-1px); }
+.nav-cta::after { display: none !important; }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: none; }
+.hamburger span { width: 26px; height: 2px; background: var(--cream); transition: 0.3s; }
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--black-soft);
+  border-top: 1px solid rgba(232,116,26,0.2);
+  padding: 60px 8% 30px;
+}
+.footer-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem; margin-bottom: 3rem;
+}
+.footer-brand .logo-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem; letter-spacing: 0.1em;
+  color: var(--cream); margin-bottom: 1rem;
+}
+.footer-brand .logo-text span { color: var(--orange); }
+.footer-brand p {
+  font-size: 0.82rem; line-height: 1.8;
+  color: rgba(245,236,215,0.55);
+  max-width: 280px;
+}
+.footer-col h4 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem; letter-spacing: 0.15em;
+  color: var(--orange); margin-bottom: 1.2rem;
+}
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 0.7rem; }
+.footer-col ul li a {
+  font-size: 0.82rem; color: rgba(245,236,215,0.6);
+  letter-spacing: 0.05em;
+  transition: color 0.3s;
+}
+.footer-col ul li a:hover { color: var(--orange); }
+.footer-socials { display: flex; gap: 14px; margin-top: 1.2rem; }
+.footer-socials a {
+  width: 38px; height: 38px;
+  border: 1px solid rgba(232,116,26,0.3);
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  font-size: 1rem;
+  color: var(--cream);
+  transition: background 0.3s, border-color 0.3s;
+}
+.footer-socials a:hover { background: var(--orange); border-color: var(--orange); }
+.footer-bottom {
+  border-top: 1px solid rgba(245,236,215,0.08);
+  padding-top: 1.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-bottom p {
+  font-size: 0.75rem; color: rgba(245,236,215,0.35); letter-spacing: 0.08em;
+}
+
+/* ===== WELCOME PAGE ===== */
+#welcome-page {
+  position: fixed; inset: 0;
+  z-index: 8000;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.welcome-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 40%, #1a0f03 0%, #0A0804 70%);
+}
+/* Moon image */
+.moon-bg-image {
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1532693322450-2cb5c511067d?w=1600&q=80') center/cover no-repeat;
+  opacity: 0.55;
+  filter: grayscale(30%) sepia(20%);
+}
+.moon-bg-overlay {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 60%, transparent 20%, rgba(10,8,4,0.75) 80%);
+}
+/* Staff overlay */
+.staff-overlay {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0;
+  animation: staffFadeIn 1s ease 0.8s forwards;
+}
+.staff-image-wrap {
+  position: relative;
+  width: min(700px, 90vw);
+  height: min(420px, 55vh);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 0 80px rgba(232,116,26,0.3);
+}
+.staff-image-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: brightness(0.7) contrast(1.1);
+}
+.staff-image-wrap::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(10,8,4,0.85) 100%);
+  z-index: 1;
+}
+.staff-image-wrap::after {
+  content: '';
+  position: absolute; inset: 0;
+  border: 1px solid rgba(232,116,26,0.4);
+  z-index: 2;
+}
+/* Welcome text */
+.welcome-content {
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 10;
+  opacity: 0;
+  animation: contentRise 1s ease 1.2s forwards;
+}
+.welcome-tagline {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  font-size: clamp(0.7rem, 1.5vw, 0.95rem);
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 1rem;
+}
+.welcome-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 5vw, 3.8rem);
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+.welcome-headline em {
+  color: var(--orange);
+  font-style: italic;
+}
+.welcome-sub {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  color: rgba(245,236,215,0.75);
+  letter-spacing: 0.05em;
+  margin-bottom: 2rem;
+}
+/* Loader bar */
+.welcome-loader {
+  width: 280px; height: 2px;
+  background: rgba(245,236,215,0.12);
+  margin: 0 auto 1.5rem;
+  overflow: hidden;
+  position: relative;
+}
+.welcome-loader-bar {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, var(--orange-dark), var(--orange), var(--orange-light));
+  animation: loaderFill 3s cubic-bezier(0.4,0,0.2,1) 1.5s forwards;
+}
+.welcome-skip {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  color: rgba(245,236,215,0.4);
+  cursor: none;
+  transition: color 0.3s;
+  text-transform: uppercase;
+  border: none; background: none;
+}
+.welcome-skip:hover { color: var(--orange); }
+/* Moon orbit animation */
+.orbit-ring {
+  position: absolute;
+  border: 1px solid rgba(232,116,26,0.1);
+  border-radius: 50%;
+  animation: rotate 20s linear infinite;
+}
+.orbit-ring:nth-child(1) { width: 300px; height: 300px; top: 10%; right: 5%; animation-duration: 25s; }
+.orbit-ring:nth-child(2) { width: 500px; height: 500px; top: 5%; right: 0%; opacity: 0.5; animation-duration: 40s; animation-direction: reverse; }
+.orbit-dot {
+  width: 6px; height: 6px;
+  background: var(--orange);
+  border-radius: 50%;
+  position: absolute;
+  top: -3px; left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 10px var(--orange);
+}
+@keyframes staffFadeIn { to { opacity: 1; } }
+@keyframes contentRise { from { opacity: 0; transform: translateX(-50%) translateY(30px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+@keyframes loaderFill { to { width: 100%; } }
+@keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.welcome-page-out {
+  animation: pageOut 0.8s ease forwards;
+}
+@keyframes pageOut {
+  to { opacity: 0; transform: scale(1.03); pointer-events: none; }
+}
+/* Stars */
+.stars {
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 70% 15%, rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 85% 75%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 50% 90%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(2px 2px at 20% 45%, rgba(232,116,26,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 35%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 50%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 15% 80%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(2px 2px at 75% 55%, rgba(232,116,26,0.3) 0%, transparent 100%);
+  animation: twinkle 4s ease-in-out infinite alternate;
+}
+@keyframes twinkle { from { opacity: 0.6; } to { opacity: 1; } }
+
+/* ===== HOME PAGE ===== */
+#home-page {
+  padding-top: var(--nav-height);
+}
+/* Hero */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  position: relative; overflow: hidden;
+  padding: 0 8%;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1542822038-35c07e7ee76d?w=1600&q=80') center/cover no-repeat;
+  opacity: 0.18;
+  filter: sepia(30%);
+}
+.hero-bg-gradient {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 65% 50%, rgba(232,116,26,0.08) 0%, transparent 60%),
+              linear-gradient(to right, var(--black) 30%, transparent 100%);
+}
+.hero-content {
+  position: relative; z-index: 2;
+  max-width: 700px;
+}
+.hero-label {
+  font-size: 0.72rem; letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: 12px;
+}
+.hero-label::before {
+  content: ''; width: 40px; height: 1px; background: var(--orange);
+}
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  color: var(--cream);
+  margin-bottom: 1.5rem;
+}
+.hero-title .accent { color: var(--orange); }
+.hero-title .outline {
+  -webkit-text-stroke: 1px var(--cream);
+  color: transparent;
+}
+.hero-desc {
+  font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+  line-height: 1.9;
+  color: rgba(245,236,215,0.65);
+  max-width: 500px;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: var(--orange);
+  color: var(--black);
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 16px 36px;
+  border: none;
+  cursor: none;
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+  position: relative; overflow: hidden;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: var(--orange-light);
+  transform: translateX(-100%);
+  transition: transform 0.35s ease;
+}
+.btn-primary:hover::before { transform: translateX(0); }
+.btn-primary span { position: relative; z-index: 1; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(232,116,26,0.4); }
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: transparent;
+  color: var(--cream);
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 15px 35px;
+  border: 1px solid rgba(245,236,215,0.35);
+  cursor: none;
+  transition: border-color 0.3s, color 0.3s, transform 0.3s;
+  margin-left: 1.2rem;
+}
+.btn-outline:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-2px); }
+.hero-stats {
+  position: absolute; right: 8%; bottom: 10%;
+  display: flex; gap: 3rem;
+}
+.stat { text-align: center; }
+.stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.8rem; line-height: 1;
+  color: var(--orange);
+}
+.stat-label {
+  font-size: 0.68rem; letter-spacing: 0.2em;
+  color: rgba(245,236,215,0.45);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+.hero-scroll {
+  position: absolute; bottom: 40px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  cursor: none;
+}
+.hero-scroll span { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(245,236,215,0.4); }
+.scroll-line { width: 1px; height: 60px; background: linear-gradient(to bottom, var(--orange), transparent); animation: scrollPulse 2s ease-in-out infinite; }
+@keyframes scrollPulse { 0%,100%{transform:scaleY(1);opacity:1} 50%{transform:scaleY(0.7);opacity:0.5} }
+
+/* About strip */
+.about-strip {
+  background: var(--black-soft);
+  padding: 80px 8%;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: center;
+}
+.about-img-wrap {
+  position: relative;
+}
+.about-img-wrap img {
+  width: 100%; height: 450px;
+  object-fit: cover;
+  filter: brightness(0.8) contrast(1.1) sepia(10%);
+}
+.about-img-wrap::before {
+  content: '';
+  position: absolute; bottom: -20px; right: -20px;
+  width: 80%; height: 80%;
+  border: 1px solid rgba(232,116,26,0.3);
+  z-index: -1;
+}
+.about-label { font-size: 0.72rem; letter-spacing: 0.3em; color: var(--orange); text-transform: uppercase; margin-bottom: 1rem; }
+.about-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  font-weight: 400; line-height: 1.2;
+  color: var(--cream); margin-bottom: 1.5rem;
+}
+.about-text {
+  font-size: 0.88rem; line-height: 2; color: rgba(245,236,215,0.6); font-weight: 300;
+  margin-bottom: 2rem;
+}
+
+/* ===== SERVICES PAGE ===== */
+#services-page { padding-top: var(--nav-height); background: var(--black); }
+.page-hero {
+  height: 45vh; min-height: 350px;
+  display: flex; align-items: flex-end;
+  padding: 0 8% 5%;
+  position: relative; overflow: hidden;
+}
+.page-hero-bg {
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1519671282429-b44660ead0a7?w=1600&q=80') center/cover;
+  opacity: 0.2; filter: sepia(20%);
+}
+.page-hero-gradient {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, var(--black) 30%, rgba(10,8,4,0.6) 100%);
+}
+.page-hero-content { position: relative; z-index: 2; }
+.page-label {
+  font-size: 0.7rem; letter-spacing: 0.35em; color: var(--orange);
+  text-transform: uppercase; margin-bottom: 0.8rem;
+}
+.page-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  line-height: 0.95; letter-spacing: 0.02em;
+  color: var(--cream);
+}
+.page-title span { color: var(--orange); }
+.services-grid {
+  padding: 80px 8%;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.service-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 2.5rem 2rem;
+  position: relative; overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), box-shadow 0.4s, border-color 0.4s;
+  cursor: none;
+}
+.service-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(232,116,26,0.06) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.service-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(232,116,26,0.15); border-color: rgba(232,116,26,0.5); }
+.service-card:hover::before { opacity: 1; }
+.service-icon {
+  font-size: 2.2rem; margin-bottom: 1.2rem;
+  display: block;
+}
+.service-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 4rem; color: rgba(232,116,26,0.08);
+  position: absolute; top: 1rem; right: 1.5rem;
+  line-height: 1; letter-spacing: 0.02em;
+  transition: color 0.4s;
+}
+.service-card:hover .service-num { color: rgba(232,116,26,0.15); }
+.service-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; font-weight: 600;
+  color: var(--cream); margin-bottom: 0.8rem;
+}
+.service-desc {
+  font-size: 0.84rem; line-height: 1.9;
+  color: rgba(245,236,215,0.55); font-weight: 300;
+}
+.service-line {
+  width: 40px; height: 2px; background: var(--orange);
+  margin-top: 1.5rem;
+  transition: width 0.4s;
+}
+.service-card:hover .service-line { width: 70px; }
+
+/* ===== GALLERY PAGE ===== */
+#gallery-page { padding-top: var(--nav-height); background: var(--black); }
+.gallery-section { padding: 80px 8%; }
+.gallery-intro {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 3.5rem;
+}
+.gallery-controls {
+  display: flex; gap: 12px;
+}
+.gallery-arrow {
+  width: 50px; height: 50px;
+  border: 1px solid rgba(232,116,26,0.4);
+  background: transparent;
+  color: var(--cream);
+  font-size: 1.2rem;
+  display: flex; align-items: center; justify-content: center;
+  cursor: none;
+  transition: background 0.3s, border-color 0.3s;
+}
+.gallery-arrow:hover { background: var(--orange); border-color: var(--orange); }
+/* 3 grid slideshow */
+.gallery-grid-wrap { overflow: hidden; }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  transition: opacity 0.5s ease;
+}
+.gallery-item {
+  position: relative; overflow: hidden;
+  aspect-ratio: 4/3;
+  cursor: none;
+}
+.gallery-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.4,0,0.2,1), filter 0.4s;
+  filter: brightness(0.85) contrast(1.05) sepia(10%);
+}
+.gallery-item:hover img { transform: scale(1.06); filter: brightness(0.95) contrast(1.1) sepia(5%); }
+.gallery-item-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(10,8,4,0.85) 0%, transparent 50%);
+  opacity: 0; transition: opacity 0.4s;
+  display: flex; align-items: flex-end; padding: 1.5rem;
+}
+.gallery-item:hover .gallery-item-overlay { opacity: 1; }
+.gallery-item-label {
+  font-size: 0.8rem; letter-spacing: 0.15em;
+  color: var(--cream); text-transform: uppercase;
+}
+.gallery-item-label span { color: var(--orange); }
+.gallery-dots {
+  display: flex; justify-content: center; gap: 8px; margin-top: 2rem;
+}
+.gallery-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(245,236,215,0.2);
+  cursor: none;
+  transition: background 0.3s, transform 0.3s;
+}
+.gallery-dot.active { background: var(--orange); transform: scale(1.3); }
+/* Slide transition */
+.gallery-grid.slide-out { animation: slideOut 0.4s ease forwards; }
+.gallery-grid.slide-in { animation: slideIn 0.4s ease forwards; }
+@keyframes slideOut { to { opacity: 0; transform: translateX(-30px); } }
+@keyframes slideIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+
+/* ===== BOOK US PAGE ===== */
+#book-page { padding-top: var(--nav-height); background: var(--black); }
+.book-section {
+  min-height: calc(100vh - var(--nav-height));
+  display: grid; grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+}
+.book-left {
+  background: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1200&q=80') center/cover;
+  position: relative; overflow: hidden;
+  min-height: 600px;
+}
+.book-left-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, rgba(10,8,4,0.7) 0%, rgba(10,8,4,0.3) 100%),
+              linear-gradient(to bottom, transparent 40%, rgba(10,8,4,0.9) 100%);
+}
+.book-left-content {
+  position: absolute; bottom: 10%; left: 10%;
+  z-index: 2;
+}
+.book-left-content h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  line-height: 1; letter-spacing: 0.03em;
+  color: var(--cream); margin-bottom: 1rem;
+}
+.book-left-content h2 span { color: var(--orange); }
+.book-left-content p {
+  font-size: 0.9rem; line-height: 1.8;
+  color: rgba(245,236,215,0.65); max-width: 350px; font-weight: 300;
+}
+.book-right {
+  background: var(--black-soft);
+  padding: 8%;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.book-form-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem; font-weight: 400;
+  color: var(--cream); margin-bottom: 0.5rem;
+}
+.book-form-sub {
+  font-size: 0.82rem; color: rgba(245,236,215,0.45);
+  margin-bottom: 2.5rem; letter-spacing: 0.05em;
+}
+.book-form { display: flex; flex-direction: column; gap: 1.2rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+.form-group { display: flex; flex-direction: column; gap: 8px; }
+.form-group label {
+  font-size: 0.7rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: rgba(245,236,215,0.5);
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: rgba(245,236,215,0.05);
+  border: 1px solid rgba(232,116,26,0.2);
+  color: var(--cream);
+  padding: 14px 16px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.88rem;
+  outline: none;
+  transition: border-color 0.3s, background 0.3s;
+  cursor: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--orange);
+  background: rgba(232,116,26,0.05);
+}
+.form-group select option { background: var(--black-soft); color: var(--cream); }
+.form-group textarea { resize: vertical; min-height: 100px; }
+.btn-whatsapp {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  background: #25D366;
+  color: white;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700; font-size: 0.82rem;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 18px;
+  border: none; cursor: none;
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+  margin-top: 0.5rem;
+}
+.btn-whatsapp:hover { background: #1fb854; transform: translateY(-2px); box-shadow: 0 12px 40px rgba(37,211,102,0.3); }
+.whatsapp-note {
+  font-size: 0.72rem; color: rgba(245,236,215,0.35);
+  text-align: center; margin-top: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+/* ===== CONTACT PAGE ===== */
+#contact-page { padding-top: var(--nav-height); background: var(--black); }
+.contact-section { padding: 80px 8%; }
+.contact-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem; margin-top: 3rem;
+}
+.contact-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 3rem 2.5rem;
+  position: relative; overflow: hidden;
+  cursor: none;
+  transition: transform 0.4s, box-shadow 0.4s, border-color 0.4s;
+  text-decoration: none;
+  display: block;
+}
+.contact-card-caption {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(232,116,26,0.92), rgba(200,90,10,0.95));
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.4,0,0.2,1);
+  z-index: 5;
+  padding: 2rem;
+  text-align: center;
+}
+.contact-card:hover .contact-card-caption { opacity: 1; }
+.contact-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(232,116,26,0.2); border-color: rgba(232,116,26,0.6); }
+.caption-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+.caption-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem; letter-spacing: 0.1em;
+  color: var(--black); margin-bottom: 0.5rem;
+}
+.caption-desc {
+  font-size: 0.82rem; color: rgba(10,8,4,0.75);
+  font-weight: 400; letter-spacing: 0.03em;
+}
+.contact-card-inner { position: relative; z-index: 2; }
+.contact-card-icon { font-size: 2.8rem; margin-bottom: 1.5rem; }
+.contact-card-platform {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem; letter-spacing: 0.15em;
+  color: var(--orange); margin-bottom: 0.5rem;
+}
+.contact-card-value {
+  font-size: 1rem; color: var(--cream);
+  font-weight: 300; margin-bottom: 0.4rem;
+}
+.contact-card-sub {
+  font-size: 0.75rem; letter-spacing: 0.1em;
+  color: rgba(245,236,215,0.35);
+}
+.contact-hero-text {
+  max-width: 600px;
+}
+.contact-extra {
+  margin-top: 4rem; padding: 3rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  display: flex; gap: 3rem; align-items: center;
+}
+.contact-extra-text h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem; font-weight: 400;
+  color: var(--cream); margin-bottom: 0.5rem;
+}
+.contact-extra-text p {
+  font-size: 0.85rem; color: rgba(245,236,215,0.5);
+  line-height: 1.8; font-weight: 300;
+}
+
+/* ===== PAGE TRANSITIONS ===== */
+.page-enter { animation: pageEnter 0.6s ease forwards; }
+@keyframes pageEnter { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ===== SECTION REVEAL ===== */
+.reveal {
+  opacity: 0; transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ===== ORANGE DIVIDER ===== */
+.divider { width: 60px; height: 2px; background: var(--orange); margin-bottom: 1.5rem; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .about-strip { grid-template-columns: 1fr; gap: 3rem; }
+  .about-img-wrap img { height: 350px; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .nav-links.open {
+    display: flex; flex-direction: column;
+    position: fixed; top: var(--nav-height); left: 0; right: 0;
+    background: rgba(10,8,4,0.97);
+    padding: 2rem 5%;
+    border-bottom: 1px solid rgba(232,116,26,0.2);
+    gap: 1.5rem;
+  }
+  .services-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .book-section { grid-template-columns: 1fr; }
+  .book-left { min-height: 300px; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .hero-stats { display: none; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .contact-extra { flex-direction: column; gap: 1.5rem; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .gallery-grid { grid-template-columns: 1fr; }
+  .contact-extra { padding: 2rem; }
+}
+
+/* ===== ORANGE GLOW BACKGROUND ORBS ===== */
+.orb {
+  position: absolute; border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,116,26,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ===== WELCOME PAGE ===== -->
+<div id="welcome-page">
+  <div class="welcome-bg"></div>
+  <div class="moon-bg-image"></div>
+  <div class="moon-bg-overlay"></div>
+  <div class="stars"></div>
+  <div class="orbit-ring"><div class="orbit-dot"></div></div>
+  <div class="orbit-ring"></div>
+
+  <div class="staff-overlay">
+    <div class="staff-image-wrap">
+      <img src="591571878_17878179657442452_7976647965053065778_n.jpg" alt="Moon Protocol Team">
+    </div>
+  </div>
+
+  <div class="welcome-content">
+    <p class="welcome-tagline">✦ Premium Event Agency ✦</p>
+    <h1 class="welcome-headline">We're <em>Moon Protocol</em><br>Hire Us In Your Events</h1>
+    <p class="welcome-sub">Excellence in every detail. Magic in every moment.</p>
+    <div class="welcome-loader">
+      <div class="welcome-loader-bar" id="loaderBar"></div>
+    </div>
+    <button class="welcome-skip" id="skipBtn" onclick="endWelcome()">Skip Intro ›</button>
+  </div>
+</div>
+
+<!-- ===== NAV ===== -->
+<nav id="navbar" style="display:none;">
+  <div class="nav-logo">
+    <span class="moon-icon">◐</span>
+    MOON <span>PROTOCOL</span>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#" onclick="showPage('home')" data-page="home" class="active-link">Home</a></li>
+    <li><a href="#" onclick="showPage('services')" data-page="services">Services</a></li>
+    <li><a href="#" onclick="showPage('gallery')" data-page="gallery">Gallery</a></li>
+    <li><a href="#" onclick="showPage('contact')" data-page="contact">Contact</a></li>
+    <li><a href="#" onclick="showPage('book')" data-page="book" class="nav-cta">Book Us</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ===== HOME PAGE ===== -->
+<div id="home-page" class="page">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-bg-gradient"></div>
+    <div class="orb" style="width:600px;height:600px;top:-100px;right:-150px;"></div>
+    <div class="hero-content">
+      <div class="hero-label">Premium Protocol & Event Agency</div>
+      <h1 class="hero-title">
+        BEYOND<br>
+        <span class="accent">ORDINARY</span><br>
+        <span class="outline">EVENTS</span>
+      </h1>
+      <p class="hero-desc">We craft extraordinary experiences that leave lasting impressions. From corporate galas to intimate celebrations — Moon Protocol delivers flawless execution every time.</p>
+      <div>
+        <a href="#" onclick="showPage('book')" class="btn-primary"><span>✦ Book Your Event</span></a>
+        <a href="#" onclick="showPage('services')" class="btn-outline">Our Services</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">200+</div><div class="stat-label">Events Done</div></div>
+      <div class="stat"><div class="stat-num">5★</div><div class="stat-label">Client Rating</div></div>
+      <div class="stat"><div class="stat-num">8+</div><div class="stat-label">Years Active</div></div>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- About Strip -->
+  <section class="about-strip">
+    <div class="about-img-wrap reveal">
+      <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=900&q=80" alt="Our Team in Action">
+    </div>
+    <div class="reveal reveal-delay-2">
+      <p class="about-label">Who We Are</p>
+      <h2 class="about-title">Your Event Deserves<br>a Flawless Protocol</h2>
+      <div class="divider"></div>
+      <p class="about-text">Moon Protocol is a premium event management and protocol agency built on the belief that every gathering — no matter the scale — deserves precision, elegance, and soul. Our team of dedicated professionals handles every detail so you can live every moment.</p>
+      <p class="about-text">From venue dressing to guest management, from AV production to on-ground coordination, we are your single point of excellence.</p>
+      <a href="#" onclick="showPage('services')" class="btn-primary" style="margin-top:0.5rem;"><span>Explore Services →</span></a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-text">MOON <span>PROTOCOL</span></div>
+        <p>Premium event management and protocol agency delivering flawless experiences across Rwanda and beyond. Elegance. Precision. Excellence.</p>
+        <div class="footer-socials">
+          <a href="https://wa.me/250790000000" target="_blank"></a>
+          <a href="https://instagram.com/moonprotocol" target="_blank">📷</a>
+          <a href="mailto:info@moonprotocol.rw">✉️</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#" onclick="showPage('home')">Home</a></li>
+          <li><a href="#" onclick="showPage('services')">Services</a></li>
+          <li><a href="#" onclick="showPage('gallery')">Gallery</a></li>
+          <li><a href="#" onclick="showPage('contact')">Contact Us</a></li>
+          <li><a href="#" onclick="showPage('book')">Book Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">Corporate Events</a></li>
+          <li><a href="#">Weddings & Galas</a></li>
+          <li><a href="#">Conferences</a></li>
+          <li><a href="#">Protocol Services</a></li>
+          <li><a href="#">Cultural Events</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+250790000000">+250 790 000 000</a></li>
+          <li><a href="mailto:info@moonprotocol.rw">info@moonprotocol.rw</a></li>
+          <li><a href="#">Kigali, Rwanda</a></li>
+          <li><a href="https://wa.me/250790000000" target="_blank">WhatsApp Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Moon Protocol. All rights reserved.</p>
+      <p>Crafted with ◐ in Kigali</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ===== SERVICES PAGE ===== -->
+<div id="services-page" class="page">
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-gradient"></div>
+    <div class="page-hero-content">
+      <p class="page-label">✦ What We Offer</p>
+      <h1 class="page-title">OUR <span>SERVICES</span></h1>
+    </div>
+  </div>
+
+  <section class="services-grid">
+    <div class="service-card reveal">
+      <span class="service-icon">🎪</span>
+      <span class="service-num">01</span>
+      <h3 class="service-title">Corporate Events</h3>
+      <p class="service-desc">AGMs, product launches, team-building, and executive retreats. We handle logistics, decor, AV, and on-ground protocol with military precision.</p>
+      <div class="service-line"></div>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <span class="service-icon">💍</span>
+      <span class="service-num">02</span>
+      <h3 class="service-title">Weddings & Galas</h3>
+      <p class="service-desc">Your perfect day, flawlessly coordinated. From intimate garden ceremonies to grand ballroom galas, we turn your vision into an unforgettable reality.</p>
+      <div class="service-line"></div>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <span class="service-icon">🎤</span>
+      <span class="service-num">03</span>
+      <h3 class="service-title">Conferences & Summits</h3>
+      <p class="service-desc">International summits, panel discussions, and symposia. Full technical production, delegate management, and simultaneous translation support.</p>
+      <div class="service-line"></div>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <span class="service-icon">🎭</span>
+      <span class="service-num">04</span>
+      <h3 class="service-title">Cultural & State Events</h3>
+      <p class="service-desc">National celebrations, cultural showcases, and state functions. We bring the gravitas, elegance, and protocol expertise these occasions demand.</p>
+      <div class="service-line"></div>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <span class="service-icon">🎶</span>
+      <span class="service-num">05</span>
+      <h3 class="service-title">Concerts & Entertainment</h3>
+      <p class="service-desc">Live concerts, award shows, and entertainment events. Full stage management, crowd control, and artist liaison services included.</p>
+      <div class="service-line"></div>
+    </div>
+    <div class="service-card reveal reveal-delay-3">
+      <span class="service-icon">🌿</span>
+      <span class="service-num">06</span>
+      <h3 class="service-title">Décor & Styling</h3>
+      <p class="service-desc">Transforming spaces with bespoke décor, floral arrangements, lighting design, and atmosphere curation that perfectly matches your theme and brand.</p>
+      <div class="service-line"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-text">MOON <span>PROTOCOL</span></div>
+        <p>Premium event management and protocol agency delivering flawless experiences across Rwanda and beyond.</p>
+        <div class="footer-socials">
+          <a href="https://wa.me/250790000000" target="_blank">📱</a>
+          <a href="https://instagram.com/moonprotocol" target="_blank">📷</a>
+          <a href="mailto:info@moonprotocol.rw">✉️</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#" onclick="showPage('home')">Home</a></li>
+          <li><a href="#" onclick="showPage('services')">Services</a></li>
+          <li><a href="#" onclick="showPage('gallery')">Gallery</a></li>
+          <li><a href="#" onclick="showPage('contact')">Contact Us</a></li>
+          <li><a href="#" onclick="showPage('book')">Book Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">Corporate Events</a></li>
+          <li><a href="#">Weddings & Galas</a></li>
+          <li><a href="#">Conferences</a></li>
+          <li><a href="#">Protocol Services</a></li>
+          <li><a href="#">Cultural Events</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+250790000000">+250 790 000 000</a></li>
+          <li><a href="mailto:info@moonprotocol.rw">info@moonprotocol.rw</a></li>
+          <li><a href="#">Kigali, Rwanda</a></li>
+          <li><a href="https://wa.me/250790000000" target="_blank">WhatsApp Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Moon Protocol. All rights reserved.</p>
+      <p>Crafted with ◐ in Kigali</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ===== GALLERY PAGE ===== -->
+<div id="gallery-page" class="page">
+  <div class="page-hero">
+    <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1507901747481-84a4f64fda6d?w=1600&q=80')"></div>
+    <div class="page-hero-gradient"></div>
+    <div class="page-hero-content">
+      <p class="page-label">✦ Our Work</p>
+      <h1 class="page-title">EVENT <span>GALLERY</span></h1>
+    </div>
+  </div>
+
+  <section class="gallery-section">
+    <div class="gallery-intro reveal">
+      <div class="gallery-intro-text">
+        <p class="page-label">Past Events</p>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:400;color:var(--cream);">Moments We've <em style="color:var(--orange);font-style:italic;">Crafted</em></h2>
+      </div>
+      <div class="gallery-controls">
+        <button class="gallery-arrow" id="prevBtn" onclick="galleryPrev()">&#8592;</button>
+        <button class="gallery-arrow" id="nextBtn" onclick="galleryNext()">&#8594;</button>
+      </div>
+    </div>
+
+    <div class="gallery-grid-wrap">
+      <div class="gallery-grid" id="galleryGrid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <div class="gallery-dots" id="galleryDots"></div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-text">MOON <span>PROTOCOL</span></div>
+        <p>Premium event management and protocol agency delivering flawless experiences across Rwanda and beyond.</p>
+        <div class="footer-socials">
+          <a href="https://wa.me/250790000000" target="_blank">📱</a>
+          <a href="https://instagram.com/moonprotocol" target="_blank">📷</a>
+          <a href="mailto:info@moonprotocol.rw">✉️</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#" onclick="showPage('home')">Home</a></li>
+          <li><a href="#" onclick="showPage('services')">Services</a></li>
+          <li><a href="#" onclick="showPage('gallery')">Gallery</a></li>
+          <li><a href="#" onclick="showPage('contact')">Contact Us</a></li>
+          <li><a href="#" onclick="showPage('book')">Book Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">Corporate Events</a></li>
+          <li><a href="#">Weddings & Galas</a></li>
+          <li><a href="#">Conferences</a></li>
+          <li><a href="#">Protocol Services</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+250790000000">+250 790 000 000</a></li>
+          <li><a href="mailto:info@moonprotocol.rw">info@moonprotocol.rw</a></li>
+          <li><a href="#">Kigali, Rwanda</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Moon Protocol. All rights reserved.</p>
+      <p>Crafted with ◐ in Kigali</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ===== BOOK US PAGE ===== -->
+<div id="book-page" class="page">
+  <section class="book-section">
+    <div class="book-left">
+      <div class="book-left-overlay"></div>
+      <div class="book-left-content">
+        <h2>BOOK YOUR <span>EVENT</span><br>WITH US</h2>
+        <p>Tell us about your vision. We'll connect with you on WhatsApp to plan every detail personally and ensure your event is truly extraordinary.</p>
+      </div>
+    </div>
+    <div class="book-right">
+      <h2 class="book-form-title">Request a Booking</h2>
+      <p class="book-form-sub">Fill in the details below — we'll reach out on WhatsApp within 24 hours.</p>
+      <div class="book-form" id="bookForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your Full Name</label>
+            <input type="text" id="clientName" placeholder="e.g. Alice Uwimana">
+          </div>
+          <div class="form-group">
+            <label>WhatsApp Number</label>
+            <input type="tel" id="clientPhone" placeholder="+250 7XX XXX XXX">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Event Type</label>
+            <select id="eventType">
+              <option value="">Select event type</option>
+              <option>Corporate Event</option>
+              <option>Wedding / Gala</option>
+              <option>Conference / Summit</option>
+              <option>Cultural / State Event</option>
+              <option>Concert / Entertainment</option>
+              <option>Décor & Styling Only</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Event Date</label>
+            <input type="date" id="eventDate">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Expected Number of Guests</label>
+          <select id="guestCount">
+            <option value="">Select guest range</option>
+            <option>Under 50</option>
+            <option>50 – 150</option>
+            <option>150 – 500</option>
+            <option>500 – 1000</option>
+            <option>Over 1000</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tell Us About Your Event</label>
+          <textarea id="eventDesc" placeholder="Describe your event vision, venue, theme, or any special requirements..."></textarea>
+        </div>
+        <button class="btn-whatsapp" onclick="sendToWhatsApp()">
+          <span style="font-size:1.3rem">💬</span>
+          <span>SEND TO WHATSAPP & BOOK NOW</span>
+        </button>
+        <p class="whatsapp-note">You'll be redirected to WhatsApp with your details pre-filled for a seamless conversation.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-text">MOON <span>PROTOCOL</span></div>
+        <p>Premium event management and protocol agency delivering flawless experiences across Rwanda and beyond.</p>
+        <div class="footer-socials">
+          <a href="https://wa.me/250790000000" target="_blank">📱</a>
+          <a href="https://instagram.com/moonprotocol" target="_blank">📷</a>
+          <a href="mailto:info@moonprotocol.rw">✉️</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#" onclick="showPage('home')">Home</a></li>
+          <li><a href="#" onclick="showPage('services')">Services</a></li>
+          <li><a href="#" onclick="showPage('gallery')">Gallery</a></li>
+          <li><a href="#" onclick="showPage('contact')">Contact Us</a></li>
+          <li><a href="#" onclick="showPage('book')">Book Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">Corporate Events</a></li>
+          <li><a href="#">Weddings & Galas</a></li>
+          <li><a href="#">Conferences</a></li>
+          <li><a href="#">Protocol Services</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+250790000000">+250 790 000 000</a></li>
+          <li><a href="mailto:info@moonprotocol.rw">info@moonprotocol.rw</a></li>
+          <li><a href="#">Kigali, Rwanda</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Moon Protocol. All rights reserved.</p>
+      <p>Crafted with ◐ in Kigali</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ===== CONTACT PAGE ===== -->
+<div id="contact-page" class="page">
+  <div class="page-hero">
+    <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1600&q=80')"></div>
+    <div class="page-hero-gradient"></div>
+    <div class="page-hero-content">
+      <p class="page-label">✦ Get In Touch</p>
+      <h1 class="page-title">CONTACT <span>US</span></h1>
+    </div>
+  </div>
+
+  <section class="contact-section">
+    <div class="contact-hero-text reveal">
+      <div class="divider"></div>
+      <p style="font-size:0.9rem;line-height:2;color:rgba(245,236,215,0.55);font-weight:300;max-width:500px;">
+        Hover over each card to connect with us on your preferred platform. We're always ready to turn your event vision into reality.
+      </p>
+    </div>
+
+    <div class="contact-grid">
+      <!-- WhatsApp -->
+      <a href="https://wa.me/250790000000" target="_blank" class="contact-card reveal">
+        <div class="contact-card-caption">
+          <div class="caption-icon">💬</div>
+          <div class="caption-title">Chat on WhatsApp</div>
+          <div class="caption-desc">Tap to open WhatsApp and start a conversation with our team directly.</div>
+        </div>
+        <div class="contact-card-inner">
+          <div class="contact-card-icon">📱</div>
+          <div class="contact-card-platform">WhatsApp</div>
+          <div class="contact-card-value">+250 790 000 000</div>
+          <div class="contact-card-sub">Available Mon–Sat, 8AM–8PM</div>
+        </div>
+      </a>
+
+      <!-- Instagram -->
+      <a href="https://instagram.com/moonprotocol" target="_blank" class="contact-card reveal reveal-delay-1">
+        <div class="contact-card-caption">
+          <div class="caption-icon">📸</div>
+          <div class="caption-title">Follow on Instagram</div>
+          <div class="caption-desc">See our latest events, behind-the-scenes moments and event inspiration.</div>
+        </div>
+        <div class="contact-card-inner">
+          <div class="contact-card-icon">📷</div>
+          <div class="contact-card-platform">Instagram</div>
+          <div class="contact-card-value">@moonprotocol</div>
+          <div class="contact-card-sub">Follow for event inspiration</div>
+        </div>
+      </a>
+
+      <!-- Email -->
+      <a href="mailto:info@moonprotocol.rw" class="contact-card reveal reveal-delay-2">
+        <div class="contact-card-caption">
+          <div class="caption-icon">✉️</div>
+          <div class="caption-title">Send an Email</div>
+          <div class="caption-desc">For formal inquiries, proposals and partnership discussions.</div>
+        </div>
+        <div class="contact-card-inner">
+          <div class="contact-card-icon">📧</div>
+          <div class="contact-card-platform">Email</div>
+          <div class="contact-card-value">info@moonprotocol.rw</div>
+          <div class="contact-card-sub">We reply within 24 hours</div>
+        </div>
+      </a>
+
+      <!-- Phone -->
+      <a href="tel:+250790000000" class="contact-card reveal reveal-delay-3">
+        <div class="contact-card-caption">
+          <div class="caption-icon">📞</div>
+          <div class="caption-title">Call Us Directly</div>
+          <div class="caption-desc">Speak with a Moon Protocol coordinator about your event right now.</div>
+        </div>
+        <div class="contact-card-inner">
+          <div class="contact-card-icon">☎️</div>
+          <div class="contact-card-platform">Phone</div>
+          <div class="contact-card-value">+250 790 000 000</div>
+          <div class="contact-card-sub">Call during business hours</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="contact-extra reveal">
+      <div>
+        <div class="contact-card-icon" style="font-size:3rem">📍</div>
+      </div>
+      <div class="contact-extra-text">
+        <h3>Find Us in Kigali</h3>
+        <p>Moon Protocol HQ is based in Kigali, Rwanda. We serve events across the entire country and internationally for high-profile clients. Appointments available by arrangement.</p>
+      </div>
+      <a href="https://wa.me/250790000000?text=Hello Moon Protocol, I'd like to schedule a meeting." target="_blank" class="btn-primary" style="white-space:nowrap;"><span>📅 Schedule a Meeting</span></a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-text">MOON <span>PROTOCOL</span></div>
+        <p>Premium event management and protocol agency delivering flawless experiences across Rwanda and beyond.</p>
+        <div class="footer-socials">
+          <a href="https://wa.me/250790000000" target="_blank">📱</a>
+          <a href="https://instagram.com/moonprotocol" target="_blank">📷</a>
+          <a href="mailto:info@moonprotocol.rw">✉️</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#" onclick="showPage('home')">Home</a></li>
+          <li><a href="#" onclick="showPage('services')">Services</a></li>
+          <li><a href="#" onclick="showPage('gallery')">Gallery</a></li>
+          <li><a href="#" onclick="showPage('contact')">Contact Us</a></li>
+          <li><a href="#" onclick="showPage('book')">Book Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">Corporate Events</a></li>
+          <li><a href="#">Weddings & Galas</a></li>
+          <li><a href="#">Conferences</a></li>
+          <li><a href="#">Protocol Services</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+250790000000">+250 790 000 000</a></li>
+          <li><a href="mailto:info@moonprotocol.rw">info@moonprotocol.rw</a></li>
+          <li><a href="#">Kigali, Rwanda</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Moon Protocol. All rights reserved.</p>
+      <p>Crafted with ◐ in Kigali</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+/* ===== CURSOR ===== */
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  cursor.style.left = mouseX + 'px';
+  cursor.style.top = mouseY + 'px';
+});
+function animateRing() {
+  ringX += (mouseX - ringX) * 0.12;
+  ringY += (mouseY - ringY) * 0.12;
+  cursorRing.style.left = ringX + 'px';
+  cursorRing.style.top = ringY + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+document.querySelectorAll('a, button, .service-card, .gallery-item, .contact-card, .gallery-arrow').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.width = '18px'; cursor.style.height = '18px';
+    cursorRing.style.width = '55px'; cursorRing.style.height = '55px';
+    cursorRing.style.borderColor = '#E8741A';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.width = '12px'; cursor.style.height = '12px';
+    cursorRing.style.width = '38px'; cursorRing.style.height = '38px';
+    cursorRing.style.borderColor = '#E8741A';
+  });
+});
+
+/* ===== WELCOME SEQUENCE ===== */
+function endWelcome() {
+  const wp = document.getElementById('welcome-page');
+  wp.classList.add('welcome-page-out');
+  setTimeout(() => {
+    wp.style.display = 'none';
+    document.getElementById('navbar').style.display = 'flex';
+    showPage('home');
+  }, 800);
+}
+// Auto-dismiss after 4.8s (3s loader + animation timing)
+setTimeout(() => { endWelcome(); }, 4800);
+
+/* ===== PAGE NAVIGATION ===== */
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active-link'));
+
+  const pageEl = document.getElementById(name + '-page');
+  pageEl.classList.add('active');
+  pageEl.classList.remove('page-enter');
+  void pageEl.offsetWidth; // reflow
+  pageEl.classList.add('page-enter');
+  window.scrollTo(0, 0);
+
+  // Active nav
+  document.querySelectorAll('.nav-links a[data-page]').forEach(a => {
+    if (a.getAttribute('data-page') === name) a.classList.add('active-link');
+  });
+
+  // Close mobile menu
+  document.getElementById('navLinks').classList.remove('open');
+
+  // Trigger reveals
+  setTimeout(triggerReveals, 100);
+
+  // Render gallery if needed
+  if (name === 'gallery') renderGallery();
+}
+
+/* ===== SCROLL REVEAL ===== */
+function triggerReveals() {
+  const reveals = document.querySelectorAll('.page.active .reveal');
+  reveals.forEach((el, i) => {
+    setTimeout(() => {
+      el.classList.add('visible');
+    }, i * 80);
+  });
+}
+window.addEventListener('scroll', () => {
+  document.querySelectorAll('.page.active .reveal:not(.visible)').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.88) el.classList.add('visible');
+  });
+});
+
+/* ===== MOBILE MENU ===== */
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+/* ===== GALLERY SLIDESHOW ===== */
+const galleryData = [
+  [
+    { url: 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=700&q=80', label: 'Corporate Gala', tag: '2024' },
+    { url: 'https://images.unsplash.com/photo-1519671282429-b44660ead0a7?w=700&q=80', label: 'Wedding Ceremony', tag: '2024' },
+    { url: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=700&q=80', label: 'Annual Summit', tag: '2023' },
+  ],
+  [
+    { url: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=700&q=80', label: 'Grand Banquet', tag: '2023' },
+    { url: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=700&q=80', label: 'Music Concert', tag: '2024' },
+    { url: 'https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=700&q=80', label: 'Night Gala', tag: '2024' },
+  ],
+  [
+    { url: 'https://images.unsplash.com/photo-1506157786151-b8491531f063?w=700&q=80', label: 'Live Performance', tag: '2023' },
+    { url: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=700&q=80', label: 'Conference Hall', tag: '2024' },
+    { url: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=700&q=80', label: 'Cultural Festival', tag: '2023' },
+  ],
+  [
+    { url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80', label: 'State Reception', tag: '2024' },
+    { url: 'https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=700&q=80', label: 'Outdoor Wedding', tag: '2024' },
+    { url: 'https://images.unsplash.com/photo-1504703395950-b89145a5425b?w=700&q=80', label: 'Awards Night', tag: '2023' },
+  ],
+];
+let currentSlide = 0;
+
+function renderGallery() {
+  const grid = document.getElementById('galleryGrid');
+  const dots = document.getElementById('galleryDots');
+  const slide = galleryData[currentSlide];
+
+  // Grid
+  grid.innerHTML = slide.map(item => `
+    <div class="gallery-item">
+      <img src="${item.url}" alt="${item.label}" loading="lazy">
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-label">${item.label} <span>· ${item.tag}</span></div>
+      </div>
+    </div>
+  `).join('');
+
+  // Dots
+  dots.innerHTML = galleryData.map((_, i) => `
+    <div class="gallery-dot ${i === currentSlide ? 'active' : ''}" onclick="goToSlide(${i})"></div>
+  `).join('');
+}
+function goToSlide(idx) {
+  const grid = document.getElementById('galleryGrid');
+  grid.classList.add('slide-out');
+  setTimeout(() => {
+    currentSlide = idx;
+    renderGallery();
+    grid.classList.remove('slide-out');
+    grid.classList.add('slide-in');
+    setTimeout(() => grid.classList.remove('slide-in'), 400);
+  }, 350);
+}
+function galleryNext() { goToSlide((currentSlide + 1) % galleryData.length); }
+function galleryPrev() { goToSlide((currentSlide - 1 + galleryData.length) % galleryData.length); }
+
+// Auto-advance gallery
+setInterval(() => {
+  const galleryPage = document.getElementById('gallery-page');
+  if (galleryPage.classList.contains('active')) galleryNext();
+}, 5000);
+
+/* ===== WHATSAPP BOOKING ===== */
+function sendToWhatsApp() {
+  const name = document.getElementById('clientName').value || '(not provided)';
+  const phone = document.getElementById('clientPhone').value || '(not provided)';
+  const type = document.getElementById('eventType').value || '(not selected)';
+  const date = document.getElementById('eventDate').value || '(not selected)';
+  const guests = document.getElementById('guestCount').value || '(not selected)';
+  const desc = document.getElementById('eventDesc').value || '(not provided)';
+
+  const msg = encodeURIComponent(
+    `Hello Moon Protocol! 🌙✨\n\n` +
+    `I'd like to book your services.\n\n` +
+    `👤 *Name:* ${name}\n` +
+    `📱 *My Contact:* ${phone}\n` +
+    `🎪 *Event Type:* ${type}\n` +
+    `📅 *Event Date:* ${date}\n` +
+    `👥 *Expected Guests:* ${guests}\n` +
+    `📝 *Details:* ${desc}\n\n` +
+    `Looking forward to working with you!`
+  );
+  window.open(`https://wa.me/250790000000?text=${msg}`, '_blank');
+}
+
+/* ===== NAV SCROLL EFFECT ===== */
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  if (window.scrollY > 50) {
+    nav.style.background = 'rgba(10,8,4,0.97)';
+  } else {
+    nav.style.background = 'rgba(10,8,4,0.85)';
+  }
+});
+</script>
+</body>
+</html>
